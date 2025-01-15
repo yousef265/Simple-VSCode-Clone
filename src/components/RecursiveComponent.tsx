@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { IFile } from "../interfaces";
-import FileIcon from "./SVG/FileIcon";
-import FolderIcon from "./SVG/FolderIcon";
+import RenderFileIcon from "./RenderFileIcon";
+import BottomArrowIcon from "./SVG/BottomArrowIcon";
 import RightArrowIcon from "./SVG/RightArrowIcon";
 
 interface IProps {
@@ -8,19 +9,30 @@ interface IProps {
 }
 
 function RecursiveComponent({ file }: IProps) {
+    const { isFolder, name, children } = file;
+    const [isOpen, setIsOpen] = useState<boolean>(true);
+    const toggle = () => {
+        isFolder && setIsOpen((prev) => !prev);
+    };
+
     return (
         <>
             <div className="mb-2 ml-2">
-                <div className="flex items-center mb-2">
-                    <span>
-                        <RightArrowIcon />
-                    </span>
-                    <span>{file.isFolder ? <FolderIcon /> : <FileIcon />}</span>
-                    <span className="ml-1.5">{file.name}</span>
+                <div className="flex items-center mb-2 cursor-pointer w-fit" onClick={toggle}>
+                    <div>
+                        {isFolder ? (
+                            <span className="flex items-center">
+                                {isOpen ? <BottomArrowIcon /> : <RightArrowIcon />}
+                                <RenderFileIcon name={name} isFolder={isFolder} isOpen={isOpen} />
+                            </span>
+                        ) : (
+                            // <FileIcon />
+                            <RenderFileIcon name={name} isFolder={isFolder} isOpen={isOpen} />
+                        )}
+                    </div>
+                    <span className="ml-1.5">{name}</span>
                 </div>
-                {file.children?.map((file, index) => (
-                    <RecursiveComponent key={index} file={file} />
-                ))}
+                {isOpen && children?.map((file, index) => <RecursiveComponent key={index} file={file} />)}
             </div>
         </>
     );

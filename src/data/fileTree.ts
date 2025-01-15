@@ -7,7 +7,44 @@ export const fileTree: IFile = {
         {
             name: "node_modules",
             isFolder: true,
-            children: [],
+            children: [
+                {
+                    name: ".vite",
+                    isFolder: true,
+                    children: [
+                        {
+                            name: "react.tsx",
+                            isFolder: false,
+                            content: `interface IProps {
+
+}
+
+const ReactFile = ({}: IProps) => {
+return (
+  <h1>React File</h1>
+)
+}
+
+export default ReactFile`,
+                        },
+                        {
+                            name: "test.tsa",
+                            isFolder: false,
+                            content: `interface IProps {
+
+}
+
+const ReactFile = ({}: IProps) => {
+return (
+  <h1>React File</h1>
+)
+}
+
+export default ReactFile`,
+                        },
+                    ],
+                },
+            ],
         },
         {
             name: "src",
