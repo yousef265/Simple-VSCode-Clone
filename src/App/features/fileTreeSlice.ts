@@ -1,16 +1,17 @@
-import { ICurrentFIle, IFile } from "./../../interfaces/index";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IFile } from "./../../interfaces/index";
 
 interface IInitialState {
     selectedFiles: IFile[];
-    currentFile: ICurrentFIle;
+    currentFile: IFile;
 }
 
 const initialState: IInitialState = {
     selectedFiles: [],
     currentFile: {
-        fileName: "",
-        content: "",
+        id: "",
+        name: "",
+        isFolder: false,
     },
 };
 
@@ -21,7 +22,7 @@ const fileTreeSlice = createSlice({
         setSelectedFiles: (state, action: PayloadAction<IFile>) => {
             state.selectedFiles.push(action.payload);
         },
-        setCurrentFIle: (state, action: PayloadAction<ICurrentFIle>) => {
+        setCurrentFIle: (state, action: PayloadAction<IFile>) => {
             state.currentFile = action.payload;
         },
     },

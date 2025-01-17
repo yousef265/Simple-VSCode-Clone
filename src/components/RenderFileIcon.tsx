@@ -7,8 +7,8 @@ import FolderIcon from "./SVG/FolderIcon";
 
 interface IProps {
     name: string;
-    isFolder: boolean;
-    isOpen: boolean;
+    isFolder?: boolean;
+    isOpen?: boolean;
 }
 function RenderFileIcon({ name, isFolder, isOpen }: IProps) {
     const fileName = name.split(".").pop() || nameWithoutExtension(name);

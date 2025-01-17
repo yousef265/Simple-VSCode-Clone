@@ -5,8 +5,3 @@ export interface IFile {
     children?: IFile[];
     content?: string;
 }
-
-export interface ICurrentFIle {
-    fileName: string;
-    content: string;
-}

@@ -4,7 +4,7 @@ import RenderFileIcon from "./RenderFileIcon";
 import BottomArrowIcon from "./SVG/BottomArrowIcon";
 import RightArrowIcon from "./SVG/RightArrowIcon";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedFiles } from "../App/features/fileTreeSlice";
+import { setCurrentFIle, setSelectedFiles } from "../App/features/fileTreeSlice";
 import { RootState } from "../App/store";
 import { fileExist } from "../utils/functions";
 
@@ -24,6 +24,7 @@ function RecursiveComponent({ file }: IProps) {
 
     const onSelectFile = () => {
         const exist = fileExist(selectedFiles, id);
+        dispatch(setCurrentFIle(file));
         if (exist) return;
         dispatch(setSelectedFiles(file));
     };
