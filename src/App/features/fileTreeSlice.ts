@@ -19,10 +19,10 @@ const fileTreeSlice = createSlice({
     name: "fileTree",
     initialState,
     reducers: {
-        setSelectedFiles: (state, action: PayloadAction<IFile>) => {
-            state.selectedFiles.push(action.payload);
+        setSelectedFiles: (state, action: PayloadAction<IFile[]>) => {
+            state.selectedFiles = action.payload;
         },
-        setCurrentFIle: (state, action: PayloadAction<IFile>) => {
+        setCurrentFile: (state, action: PayloadAction<IFile>) => {
             state.currentFile = action.payload;
         },
     },
@@ -30,4 +30,4 @@ const fileTreeSlice = createSlice({
 
 export default fileTreeSlice.reducer;
 
-export const { setCurrentFIle, setSelectedFiles } = fileTreeSlice.actions;
+export const { setCurrentFile, setSelectedFiles } = fileTreeSlice.actions;

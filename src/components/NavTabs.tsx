@@ -1,12 +1,11 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../App/store";
 import Tab from "./Tab";
-import SyntaxLighter from "./SyntaxLighter";
 
 interface IProps {}
 
 function NavTabs({}: IProps) {
-    const { selectedFiles, currentFile } = useSelector((state: RootState) => state.fileTree);
+    const { selectedFiles } = useSelector((state: RootState) => state.fileTree);
 
     return (
         <div className="w-full ">
@@ -15,7 +14,6 @@ function NavTabs({}: IProps) {
                     <Tab key={file.id} file={file} />
                 ))}
             </div>
-            <SyntaxLighter content={currentFile.content || ""} />
         </div>
     );
 }

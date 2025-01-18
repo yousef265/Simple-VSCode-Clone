@@ -1,22 +1,38 @@
 import { useDispatch, useSelector } from "react-redux";
+import { setCurrentFile, setSelectedFiles } from "../App/features/fileTreeSlice";
+import { RootState } from "../App/store";
 import { IFile } from "../interfaces";
 import RenderFileIcon from "./RenderFileIcon";
 import CloseIcon from "./SVG/CloseIcon";
-import { setCurrentFIle } from "../App/features/fileTreeSlice";
-import { RootState } from "../App/store";
+import { MouseEvent } from "react";
 
 interface IProps {
     file: IFile;
 }
 
 function Tab({ file }: IProps) {
-    const { name } = file;
+    const { name, id } = file;
     const dispatch = useDispatch();
-    const { currentFile } = useSelector((state: RootState) => state.fileTree);
+    const { currentFile, selectedFiles } = useSelector((state: RootState) => state.fileTree);
 
     const onSelectFile = () => {
         if (currentFile.id === file.id) return;
-        dispatch(setCurrentFIle(file));
+        dispatch(setCurrentFile(file));
+    };
+
+    const onRemove = (e: MouseEvent<HTMLSpanElement>) => {
+        e.stopPropagation();
+        const filtered = selectedFiles.filter((file) => file.id !== id);
+        const lastTab = filtered[filtered.length - 1];
+
+        if (!lastTab) {
+            dispatch(setSelectedFiles([]));
+            dispatch(setCurrentFile(lastTab));
+            return;
+        }
+
+        dispatch(setSelectedFiles(filtered));
+        dispatch(setCurrentFile(lastTab));
     };
 
     return (
@@ -24,7 +40,7 @@ function Tab({ file }: IProps) {
             <div className="flex items-center p-2 space-x-2 ">
                 <RenderFileIcon name={name} />
                 <span>{name}</span>
-                <span className="rounded-md cursor-pointer hover:bg-[#64646473]">
+                <span className="rounded-md cursor-pointer hover:bg-[#64646473]" onClick={(e) => onRemove(e)}>
                     <CloseIcon />
                 </span>
             </div>
