@@ -4,9 +4,11 @@ import { IFile } from "./../../interfaces/index";
 interface IInitialState {
     selectedFiles: IFile[];
     currentFile: IFile;
+    elementIdToRemove: string | null;
 }
 
 const initialState: IInitialState = {
+    elementIdToRemove: null,
     selectedFiles: [],
     currentFile: {
         id: "",
@@ -25,9 +27,12 @@ const fileTreeSlice = createSlice({
         setCurrentFile: (state, action: PayloadAction<IFile>) => {
             state.currentFile = action.payload;
         },
+        setElementIdToRemove: (state, action: PayloadAction<string | null>) => {
+            state.elementIdToRemove = action.payload;
+        },
     },
 });
 
 export default fileTreeSlice.reducer;
 
-export const { setCurrentFile, setSelectedFiles } = fileTreeSlice.actions;
+export const { setCurrentFile, setSelectedFiles, setElementIdToRemove } = fileTreeSlice.actions;

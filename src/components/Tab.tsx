@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentFile, setSelectedFiles } from "../App/features/fileTreeSlice";
+import { setCurrentFile, setElementIdToRemove, setSelectedFiles } from "../App/features/fileTreeSlice";
 import { RootState } from "../App/store";
 import { IFile } from "../interfaces";
 import RenderFileIcon from "./RenderFileIcon";
@@ -27,7 +27,6 @@ function Tab({ file }: IProps) {
 
         if (!lastTab) {
             dispatch(setSelectedFiles([]));
-            dispatch(setCurrentFile(lastTab));
             return;
         }
 
@@ -36,7 +35,14 @@ function Tab({ file }: IProps) {
     };
 
     return (
-        <div className={`cursor-pointer border-t-2 ${currentFile.id === file.id ? " border-white" : " border-transparent"}`} onClick={onSelectFile}>
+        <div
+            className={`cursor-pointer border-t-2 ${currentFile.id === file.id ? " border-white" : " border-transparent"}`}
+            onClick={onSelectFile}
+            onContextMenu={(e) => {
+                e.preventDefault();
+                dispatch(setElementIdToRemove(file.id));
+            }}
+        >
             <div className="flex items-center p-2 space-x-2 ">
                 <RenderFileIcon name={name} />
                 <span>{name}</span>

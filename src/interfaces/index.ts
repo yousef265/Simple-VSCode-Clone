@@ -5,3 +5,8 @@ export interface IFile {
     children?: IFile[];
     content?: string;
 }
+
+export interface IMenuPosition {
+    x: number;
+    y: number;
+}
